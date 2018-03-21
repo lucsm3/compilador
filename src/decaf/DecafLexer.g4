@@ -14,6 +14,7 @@ tokens
   TK_class
 }
 
+TK_CLASS: 'class program';
 LCURLY : '{';
 RCURLY : '}';
 
@@ -24,8 +25,11 @@ WS_ : (' ' | '\n' ) -> skip;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 
-CHAR : '\'' (ESC|~'\'') '\'';
-STRING : '"' (ESC|~'"')* '"';
+
+
+CHARLITERAL: '\'' (' '..'&') '\'';
+
+
 
 fragment
 ESC :  '\\' ('n'|'"');
