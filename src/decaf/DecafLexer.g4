@@ -31,7 +31,9 @@ NUMBER: ('0'..'9')+;
 
 LETTER: ('A'..'Z'|'a'..'z')+
 
-STRINGLITERAL: "\""(ESC|ID|OP_MAT|CHARLITERAL|' '| ','|'.'|';'|':'|'?'|'!'|'\\'|',' ~('"')|NUMBER)*"\"";
+STRINGLITERAL: '"' (ESC|ID|OP_MAT|' '|','|'.'|';'|':'|'?'|'!'|'\\'|',' ~('"')|NUMBER)* '"';
+
+HEXADECIMAL: '0x' ('0..9'|'a'..'f'|'A'..'F')+;
 
 CHARLITERAL: '\'' (' '..'!' | '#'..'&' | '('..'[' | ']'..'~' |ESC) '\'';
 

@@ -35,13 +35,16 @@ class Main {
 		        				type = " IDENTIFIER";
 		        				break;
 						case DecafLexer.NUMBER:
-		        				type = " IDENTIFIER";
+		        				type = " INTLITERAL";
 		        			        break;
 						case DecafLexer.CHARLITERAL:
 		        				type = " CHARLITERAL";
 		        				break;
 						case DecafLexer.STRINGLITERAL:
-		        				type = " CHARLITERAL";
+		        				type = " STRINGLITERAL";
+		        				break;
+						case DecafLexer.HEXADECIMAL:
+		        				type = " HEXADECIMAL";
 		        				break;
  		        			}
 		        			System.out.println (token.getLine() + type + " " + text);
