@@ -15,18 +15,30 @@ tokens
 }
 
 TK_CLASS: 'class program';
+
 LCURLY : '{';
 RCURLY : '}';
 
-WS_ : (' ' | '\n' ) -> skip;
+OP_MAT: ('+' | '*' | '/' |'%');
+
+OP:('&&'|'<'|'>'|'>='|'<='|'=='|'!='|'||'|'&&');
+
+WS_ : (' ' | '\n' | '\t') -> skip;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 		
+NUMBER: ('0'..'9')+;
+
+LETTER: ('A'..'Z'|'a'..'z')+
+
+STRINGLITERAL: "\""(ESC|ID|OP_MAT|CHARLITERAL|' '| ','|'.'|';'|':'|'?'|'!'|'\\'|',' ~('"')|NUMBER)*"\"";
 
 CHARLITERAL: '\'' (' '..'!' | '#'..'&' | '('..'[' | ']'..'~' |ESC) '\'';
 
 ID :
-  ('a'..'z' | 'A'..'Z' | '0'..'9'|'_')+;
+  ('-'LETTER)(LETTER|DIGIT)+;
+
+NEGATIVO:('-');
 
 fragment
 ESC :  '\\' ('n'|'t'|'\\'|'"');
