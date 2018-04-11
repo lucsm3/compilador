@@ -25,17 +25,45 @@ OP:('&&'|'<'|'>'|'>='|'<='|'=='|'!='|'||'|'&&');
 
 WS_ : (' ' | '\n' | '\t') -> skip;
 
+INT : 'int';
+
+BOOLEAN: 'boolean';
+
+IF: 'if';
+
+ELSE: 'else';
+
+FOR: 'for';
+
+RETURN: 'return';
+
+BREAK: 'break';
+
+VOID: 'void';
+
+CONTINUE: 'continue';
+
+CALLOUT: 'callout';
+
+TRUE: 'true';
+
+FALSE: 'false';
+
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 		
 NUMBER: ('0'..'9')+;
 
 LETTER: ('A'..'Z'|'a'..'z')+;
 
-STRINGLITERAL: '"' (ESC|ID|OP_MAT|' '|','|'.'|';'|':'|'?'|'!'|'\\'|',' ~('"')|NUMBER)* '"';
+STRINGLITERAL:  '"'(ID|OP_MAT|CHAR|CHARLITERAL)* '"';
 
-HEXADECIMAL: '0x' ('0..9'|'a'..'f'|'A'..'F')+;
+HEXDIGIT: (NUMBER|'a'|'b'|'c'|'d'|'e'|'f'|'A'|'B'|'C'|'D'|'E'|'F');
 
-CHARLITERAL: '\'' (' '..'!' | '#'..'&' | '('..'[' | ']'..'~' |ESC) '\'';
+HEXADECIMAL: '0x' (HEXDIGIT)(HEXDIGIT)*;
+
+CHAR: (' '..'!' | '#'..'&' | '('..'[' | ']'..'~' |ESC);
+
+CHARLITERAL: '\''CHAR'\'';
 
 PV: ';';
 
@@ -43,10 +71,7 @@ VIRGULA: ',';
 
 PE: '!';
 
-P_RESERVADAS: ('if'|'else'|'callout'|'class'|'int'|'return'|'true'|'void'|'for'|'false'|'boolean'|'break'|'continue');
-
-ID :
-  ('-'LETTER)(LETTER|NUMBER)+;
+ID : ('-'LETTER)(LETTER|NUMBER)*;
 
 NEGATIVO:('-');
 
