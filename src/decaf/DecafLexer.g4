@@ -76,4 +76,4 @@ ID : ('-'LETTER)(LETTER|NUMBER)*;
 NEGATIVO:('-');
 
 fragment
-ESC :  '\\' ('n'|'t'|'\\'|'"');
+ESC :  '\\' ('n'|'"'|'\\'|'t'|'\'');
