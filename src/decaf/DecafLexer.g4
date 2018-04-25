@@ -19,15 +19,33 @@ TK_CLASS: 'class program';
 LCURLY : '{';
 RCURLY : '}';
 
-OP_MAT: ('+' | '*' | '/' |'%');
+OP_MAT: ('+'|'*'|'/'|'%');
 
-OP:('&&'|'<'|'>'|'>='|'<='|'=='|'!='|'||'|'&&');
+OP:('&&'|'<'|'>'|'>='|'<='|'=='|'!='|'||');
 
-WS_ : (' ' | '\n' | '\t') -> skip;
+CHARLITERAL: '\''(ESC|'a'..'z'|'A'..'Z'|'0'..'9'|~'\''|'\\t'|'\\\\') '\'';
+	
+NUMBER: ('0'..'9')+;
 
-INT : 'int';
+STRING:  '"'(ESC|ID|OP_MAT|OP|' '|','|'.'|';'|':'|'?'|'!'|'\\'|',' ~('"')|NUMBER)* '"';
+
+HEXDIGIT: (NUMBER|'a'|'b'|'c'|'d'|'e'|'f'|'A'|'B'|'C'|'D'|'E'|'F');
+
+HEXADECIMAL: '0x' (HEXDIGIT)(HEXDIGIT)*;
+
+WS_: (' ' | '\n' | '\t') -> skip;
+
+SL_COMMENT : '//' (~'\n')* '\n' -> skip;
+
+INT: 'int';
+
+CLASS: 'class';
 
 BOOLEAN: 'boolean';
+
+BOOLEANLITERAL: ('true'|'false');
+
+PROGRAM: 'Program';
 
 IF: 'if';
 
@@ -49,31 +67,23 @@ TRUE: 'true';
 
 FALSE: 'false';
 
-SL_COMMENT : '//' (~'\n')* '\n' -> skip;
-		
-NUMBER: ('0'..'9')+;
-
-LETTER: ('A'..'Z'|'a'..'z')+;
-
-STRINGLITERAL:  '"'(ID|OP_MAT|CHAR|CHARLITERAL)* '"';
-
-HEXDIGIT: (NUMBER|'a'|'b'|'c'|'d'|'e'|'f'|'A'|'B'|'C'|'D'|'E'|'F');
-
-HEXADECIMAL: '0x' (HEXDIGIT)(HEXDIGIT)*;
-
-CHAR: (' '..'!' | '#'..'&' | '('..'[' | ']'..'~' |ESC);
-
-CHARLITERAL: '\''CHAR'\'';
-
 PV: ';';
 
 VIRGULA: ',';
 
 PE: '!';
 
-ID : ('-'LETTER)(LETTER|NUMBER)*;
-
 NEGATIVO:('-');
+
+COLCHETEL: '[';
+
+COLCHETER: ']';
+
+PARENTESEL: '(';
+
+PARENTESER: ')';
+
+ID: ('a'..'z' | 'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
 fragment
 ESC :  '\\' ('n'|'"'|'\\'|'t'|'\'');
