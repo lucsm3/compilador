@@ -10,7 +10,7 @@ options
   tokenVocab=DecafLexer;
 }
 
-program: CLASS PROGRAM LCURLY field_decl* method_decl* RCURLY;
+program: CLASS PROGRAM LCURLY field_decl* method_decl* RCURLY EOF;
 
 field_decl: type ID (VIRGULA type ID)* PONTOV| type ID COLCHETE_E int_literal COLCHETE_D (VIRGULA type ID COLCHETE_E int_literal COLCHETE_D)* PONTOV;
 
@@ -26,18 +26,18 @@ decimal_literal: NUMBER;
 
 hex_literal: HEXADECIMAL;
 
-type: INT|BOLLEAN;
+type: INT|BOOLEAN;
 
 statement: location assign_op expr PONTOV 
 	   | method_call PONTOV
 	   | IF PARENTESE_E expr PARENTESE_D block (ELSE block)*
-	   | FOR ID OP_ATRIBUIR expr VIRGULA expr block
+	   | FOR ID OPATRIBUIR expr VIRGULA expr block
 	   | RETURN expr* PONTOV
 	   | BREAK PONTOV
 	   | CONTINUE PONTOV
 	   | block ;
 
-assign_op: OP_ATRIBUIR | OP_DECR | OP_INC ;
+assign_op: OPATRIBUIR | OPDECR | OPINC ;
 
 method_call: method_name PARENTESE_E (expr (VIRGULA expr)*)* PARENTESE_D | CALLOUT PARENTESE_E string_literal (VIRGULA callout_arg)* PARENTESE_D;
 
@@ -59,11 +59,11 @@ bin_op: arith_op | rel_op | eq_op | cond_op;
 
 arith_op: OP_MAT | NEGATIVO;
 
-rel_op : OP_COMP;
+rel_op : OPCOMP;
 
-eq_op: OP_IGUALDADE;
+eq_op: OPIGUALDADE;
 
-cond_op: OP_COND;
+cond_op: OPCOND;
 
 literal: int_literal | char_literal | bool_literal;
 
