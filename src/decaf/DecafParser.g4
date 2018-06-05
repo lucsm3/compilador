@@ -67,7 +67,7 @@ cond_op: OPCOND;
 
 literal: int_literal | char_literal | bool_literal;
 
-bool_literal: BOLLEANLITERAL;
+bool_literal: BOOLEANLITERAL;
 
 char_literal: CHARLITERAL;
 
