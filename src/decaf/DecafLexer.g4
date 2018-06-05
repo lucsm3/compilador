@@ -14,84 +14,76 @@ tokens
   TK_class
 }
 
-TK_CLASS: 'class program';
-
 LCURLY : '{';
 RCURLY : '}';
 
-OPATRIBUIR: '=';
+OP_ATRIB: '=';
 
-OPDECR: '-=';
+OP_ATR_DECR: '-=' ;
 
-OPINC: '+=';
+OP_ATR_INCR: '+=' ;
 
-OP_MAT: ('+'|'*'|'/'|'%');
+OP_ARIT: ('+'|'*'|'/'|'%');
 
-OPCOMP: ('<'|'>'|'>='|'<=');
+OP_REL : ('>'|'<'|'>='|'<=');
 
-OPIGUALDADE: ('=='|'!=');
+OP_EQ : ('=='|'!=') ;
 
-OPCOND: ('&&'|'||');
+OP_COND: ('&&'|'||');
 
-CHARLITERAL: '\''(ESC|'a'..'z'|'A'..'Z'|'0'..'9'|~'\''|'\\t'|'\\\\') '\'';
-	
+CHARLITERAL : '\'' (ESC|'a'..'z'|'A'..'Z'|'0'..'9'|~'\''|'\\t'|'\\\\') '\''; 
+
 NUMBER: ('0'..'9')+;
 
-STRING:  '"'(ESC|ID|OP_MAT|NUMBER|' '|','|'.'|';'|':'|'?'|'!'|'\\'|',' ~('"'))* '"';
+STRING : '"' (ESC|ID|OP_ARIT|' '|','|'.'|';'|':'|'?'|'!'|'\\'|',' ~('"')|NUMBER)* '"';
 
-HEXADECIMAL: '0x' ('0'..'9'|'a'..'f'|'A'..'F')+;
+HEXADECIMAL:'0x' ('0'..'9'|'a'..'f'|'A'..'F')+;
 
-WS_: (' ' | '\n' | '\t') -> skip;
+WS_ : (' ' | '\n' | '\t' ) -> skip;
 
 SL_COMMENT : '//' (~'\n')* '\n' -> skip;
 
-INT: 'int';
+NEGATIVO: ('-');
 
-CLASS: 'class';
+PV: ';';
 
-BOOLEAN: 'boolean';
+VIRGULA: ',';
 
-BOOLEANLITERAL: ('true'|'false');
-
-PROGRAM: 'Program';
+EXCLAMACAO: '!';
 
 IF: 'if';
 
 ELSE: 'else';
 
-FOR: 'for';
+CALLOUT: 'callout';
+
+CLASS: 'class';
+
+PROGRAM: 'Program';
+
+INT: 'int';
 
 RETURN: 'return';
 
-BREAK: 'break';
-
 VOID: 'void';
+
+FOR: 'for';
+
+BOOLEAN : 'boolean';
+
+BOOLEANLITERAL: ('true'|'false');
+
+BREAK: 'break';
 
 CONTINUE: 'continue';
 
-CALLOUT: 'callout';
+LCOLCHETE: '[';
+RCOLCHETE: ']';
 
-TRUE: 'true';
+LPARENTESE: '(';
+RPARENTESE: ')';
 
-FALSE: 'false';
-
-PONTOV: ';';
-
-VIRGULA: ',';
-
-PONTOE: '!';
-
-NEGATIVO:('-');
-
-COLCHETE_E: '[';
-
-COLCHETE_D: ']';
-
-PARENTESE_E: '(';
-
-PARENTESE_D: ')';
-
-ID: ('a'..'z'|'A'..'Z'|'_')('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+ID :('a'..'z' | 'A'..'Z'|'_')('a'..'z' | 'A'..'Z'|'_'|'0'..'9')*;
 
 fragment
-ESC :  '\\' ('n'|'"'|'\\'|'t'|'\'');
+ESC : '\\' ('n'|'"'|'\\' | 't' | '\'');

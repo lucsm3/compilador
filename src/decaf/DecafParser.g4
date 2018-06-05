@@ -10,65 +10,93 @@ options
   tokenVocab=DecafLexer;
 }
 
-program: CLASS PROGRAM LCURLY field_decl* method_decl* RCURLY EOF;
+//program: ID LCURLY RCURLY EOF;
 
-field_decl: type ID (VIRGULA type ID)* PONTOV| type ID COLCHETE_E int_literal COLCHETE_D (VIRGULA type ID COLCHETE_E int_literal COLCHETE_D)* PONTOV;
+program: CLASS PROGRAM LCURLY field_decl* method_decl*   RCURLY EOF; 
 
-method_decl: (type|VOID) ID PARENTESE_E (type ID (VIRGULA type ID)* )* PARENTESE_D block;
+field_decl: type ID (VIRGULA type ID)* PV
+			| type ID LCOLCHETE int_literal RCOLCHETE (VIRGULA type ID LCOLCHETE int_literal RCOLCHETE)* PV ;
+
+method_decl: ( type | VOID ) ID LPARENTESE ( type ID (VIRGULA type ID)* )* RPARENTESE block ;
 
 block: LCURLY var_decl* statement* RCURLY;
 
-var_decl: type ID (VIRGULA (type ID | ID))*PONTOV;
+var_decl: type ID (VIRGULA (type ID | ID))* PV;
 
-int_literal: decimal_literal| hex_literal;
+type: INT | BOOLEAN;
+
+int_literal: decimal_literal | hex_literal;
 
 decimal_literal: NUMBER;
 
 hex_literal: HEXADECIMAL;
 
-type: INT|BOOLEAN;
+statement: location assign_op expr PV
+			| method_call PV
+			| IF LPARENTESE expr RPARENTESE block (ELSE block)*
+			| FOR ID OP_ATRIB expr VIRGULA expr block
+			| RETURN expr* PV
+			| BREAK PV
+			| CONTINUE PV
+			| block ;
+			
+assign_op: OP_ATRIB | OP_ATR_INCR | OP_ATR_DECR;
+			
+method_call: method_name LPARENTESE (expr (VIRGULA expr)*)* RPARENTESE
+				| CALLOUT LPARENTESE string_literal (VIRGULA callout_arg)* RPARENTESE ;
 
-statement: location assign_op expr PONTOV 
-	   | method_call PONTOV
-	   | IF PARENTESE_E expr PARENTESE_D block (ELSE block)*
-	   | FOR ID OPATRIBUIR expr VIRGULA expr block
-	   | RETURN expr* PONTOV
-	   | BREAK PONTOV
-	   | CONTINUE PONTOV
-	   | block ;
+method_name : ID;
 
-assign_op: OPATRIBUIR | OPDECR | OPINC ;
-
-method_call: method_name PARENTESE_E (expr (VIRGULA expr)*)* PARENTESE_D | CALLOUT PARENTESE_E string_literal (VIRGULA callout_arg)* PARENTESE_D;
-
-method_name: ID;
-
-location: ID | ID COLCHETE_E expr COLCHETE_D;
+location: ID | ID LCOLCHETE expr RCOLCHETE;
 
 expr: location
-	|method_call
-	|literal
-	|expr bin_op expr
-	|NEGATIVO expr
-	|PONTOE expr
-	|PARENTESE_E expr PARENTESE_D;
+		| method_call
+		| literal
+		| expr bin_op expr
+		| NEGATIVO expr
+		| EXCLAMACAO expr
+		| LPARENTESE expr RPARENTESE;
 
-callout_arg: expr | string_literal;
+callout_arg     : expr | string_literal ;
 
-bin_op: arith_op | rel_op | eq_op | cond_op;
+bin_op          : arith_op | rel_op | eq_op | cond_op ;
 
-arith_op: OP_MAT | NEGATIVO;
+arith_op        : OP_ARIT | NEGATIVO ;
 
-rel_op : OPCOMP;
+rel_op : OP_REL ;
 
-eq_op: OPIGUALDADE;
+eq_op : OP_EQ ;
 
-cond_op: OPCOND;
+cond_op : OP_COND ;
 
-literal: int_literal | char_literal | bool_literal;
+literal : int_literal | char_literal | bool_literal ;
 
-bool_literal: BOLLEANLITERAL;
+bool_literal : BOOLEANLITERAL;
 
-char_literal: CHARLITERAL;
+char_literal : CHARLITERAL ;
 
-string_literal: STRING;
+string_literal : STRING ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			
+
