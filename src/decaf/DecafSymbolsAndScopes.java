@@ -64,7 +64,7 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
 
     @Override
     public void enterField_decl(DecafParser.Field_declContext ctx) {
-        defineVar(ctx.type().get(0), ctx.ID().get(0).getSymbol());
+        enterVar_decl(ctx.type().get(0), ctx.ID().get(0).getSymbol());
     }
 
     @Override
@@ -79,7 +79,7 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
         }
     }
 
-    void defineVar(DecafParser.TypeContext typeCtx, Token nameToken) {
+    void enterVar_decl(DecafParser.TypeContext typeCtx, Token nameToken) {
         int typeTokenType = typeCtx.start.getType();
         VariableSymbol var = new VariableSymbol(nameToken.getText());
 
@@ -88,6 +88,66 @@ public class DecafSymbolsAndScopes extends DecafParserBaseListener {
 
         currentScope.define(var); // Define symbol in current scope
     }
+
+	@Override 
+	public void exitVar_decl(DecafParser.Var_declContext ctx) {
+
+	 }
+	@Override 
+	public void enterType(DecafParser.TypeContext ctx) { 
+
+	}
+	@Override 
+	public void exitType(DecafParser.TypeContext ctx) { 
+
+	}
+	@Override 
+	public void enterStatement(DecafParser.StatementContext ctx) { 
+
+	}
+
+	@Override 
+	public void exitStatement(DecafParser.StatementContext ctx) { 
+
+	}
+	@Override 
+	public void enterAssign_op(DecafParser.Assign_opContext ctx) { 
+
+	}
+	@Override 
+	public void exitAssign_op(DecafParser.Assign_opContext ctx) { 
+
+	}
+	@Override 
+	public void enterMethod_call(DecafParser.Method_callContext ctx) { 
+
+	}
+	@Override 
+	public void exitMethod_call(DecafParser.Method_callContext ctx) { 
+
+	}
+	@Override 
+	public void enterLocation(DecafParser.LocationContext ctx) { 
+	
+	}
+	@Override 
+	public void exitLocation(DecafParser.LocationContext ctx) { 
+	
+	}
+	@Override 
+	public void enterExpr(DecafParser.ExprContext ctx) { 
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpr(DecafParser.ExprContext ctx) { 
+	}
+
+
+
+
 
     /**
      * Método que atuliza o escopo para o atual e imprime o valor
